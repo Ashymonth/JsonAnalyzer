@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+  <Metadata>
+    <Identity Id="JsonAnalyzer.f8bebc70-96de-4e3d-828f-c5e8a73ceedc" Version="1.0" Language="en-US" Publisher="Ashym"/>
+    <DisplayName>JsonAnalyzer</DisplayName>
+    <Description xml:space="preserve">This is a sample diagnostic extension for the .NET Compiler Platform ("Roslyn").</Description>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0,)" />
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+  </Dependencies>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="JsonAnalyzer" Path="|JsonAnalyzer|"/>
+    <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="JsonAnalyzer" Path="|JsonAnalyzer|"/>
+    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="JsonAnalyzer.CodeFixes" Path="|JsonAnalyzer.CodeFixes|"/>
+    <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="JsonAnalyzer.CodeFixes" Path="|JsonAnalyzer.CodeFixes|"/>
+  </Assets>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,)" DisplayName="Visual Studio core editor" />
+    <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[15.0,)" DisplayName="Roslyn Language Services" />
+  </Prerequisites>
+</PackageManifest>
