@@ -29,24 +29,6 @@ namespace JsonAnalyzer
             var diagnostic = context.Diagnostics.First();
             var diagnosticSpan = diagnostic.Location.SourceSpan;
 
-            //for single property
-            //var declaration = root.FindToken(diagnosticSpan.Start).Parent.AncestorsAndSelf().OfType<PropertyDeclarationSyntax>().FirstOrDefault();
-            //context.RegisterCodeFix(
-            //    CodeAction.Create(
-            //        title: CodeFixResources.CodeFixTitle,
-            //        createChangedDocument: c => CreateJsonAttribute(context.Document, declaration, root),
-            //        equivalenceKey: nameof(CodeFixResources.CodeFixTitle)),
-            //    diagnostic);
-
-            //context.RegisterCodeFix(
-            //    CodeAction.Create(
-            //        title: CodeFixResources.CodeFixTitle,
-            //        createChangedDocument: c => CreateJsonAttribute(context.Document, declaration, root),
-            //        equivalenceKey: nameof(CodeFixResources.CodeFixTitle)),
-            //    diagnostic);
-
-
-            //for all properties
             var classDeclaration = root.FindToken(diagnosticSpan.Start).Parent.AncestorsAndSelf()
                 .OfType<ClassDeclarationSyntax>().First();
 
@@ -58,22 +40,11 @@ namespace JsonAnalyzer
                 diagnostic);
         }
 
-        //add attribute to single property
-        private static Task<Document> CreateJsonAttribute(Document document, PropertyDeclarationSyntax typeDecl, SyntaxNode root)
-        {
-            var propertyWithAttribute = typeDecl.WithAttributeLists(AddAttribute(ToJsonCase(typeDecl.Identifier.ValueText)));
-
-            var newRoot = root.ReplaceNode(typeDecl, propertyWithAttribute);
-
-            return Task.FromResult(document.WithSyntaxRoot(newRoot));
-        }
-
-        //add attribute to all properties
         private static Task<Document> CreateJsonAttributes(Document document, ClassDeclarationSyntax classDeclarationSyntax, SyntaxNode root)
         {
             var propertiesWithoutAttribute = Helper.GetProperties(classDeclarationSyntax);
             var propertiesWithAddedAttribute = propertiesWithoutAttribute.Select((property, i) =>
-                property.WithAttributeLists(AddAttribute(ToJsonCase(property.Identifier.ValueText), i != 0))).Cast<MemberDeclarationSyntax>().ToArray();
+                property.WithAttributeLists(AddAttribute(ToJsonCase(property.Identifier.ValueText), i == 0))).Cast<MemberDeclarationSyntax>().ToArray();
 
             var list = new List<MemberDeclarationSyntax>();
             foreach (var memberDeclarationSyntax in classDeclarationSyntax.Members.OfType<PropertyDeclarationSyntax>())
@@ -95,35 +66,21 @@ namespace JsonAnalyzer
             var attribute =
                 SingletonList(
                     AttributeList(
-                        SingletonSeparatedList(
-                            Attribute(
-                                    IdentifierName(JsonPropertyAttribute))
-                                .WithArgumentList(
-                                    AttributeArgumentList(
-                                        SingletonSeparatedList(
-                                            AttributeArgument(
-                                                LiteralExpression(
-                                                    SyntaxKind.StringLiteralExpression,
-                                                    Literal(literal)))))))));
-
-            if (insertTrivia)
-            {
-                attribute = new SyntaxList<AttributeListSyntax>(attribute.First()
-                    .WithCloseBracketToken(
-                        Token(
-                            TriviaList(LineFeed, Whitespace(WhiteSpaceFormat)),
-                            SyntaxKind.OpenBracketToken,
-                            TriviaList())));
-            }
-            else
-            {
-                attribute = new SyntaxList<AttributeListSyntax>(attribute.First()
-                    .WithOpenBracketToken(
-                        Token(
-                            TriviaList(LineFeed, Whitespace(WhiteSpaceFormat)),
-                            SyntaxKind.OpenBracketToken,
-                            TriviaList())));
-            }
+                            SingletonSeparatedList(
+                                Attribute(
+                                        IdentifierName(JsonPropertyAttribute))
+                                    .WithArgumentList(
+                                        AttributeArgumentList(
+                                            SingletonSeparatedList(
+                                                AttributeArgument(
+                                                    LiteralExpression(
+                                                        SyntaxKind.StringLiteralExpression,
+                                                        Literal(literal))))))))
+                        .WithOpenBracketToken(
+                            Token(
+                                TriviaList(LineFeed, Whitespace(WhiteSpaceFormat)),
+                                SyntaxKind.OpenBracketToken,
+                                TriviaList())));
 
             return attribute;
         }

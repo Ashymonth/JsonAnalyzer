@@ -11,10 +11,8 @@ namespace JsonAnalyzer
         private const string JsonPropertyAttribute = "JsonProperty";
         private const string JsonIgnoreAttribute = "JsonIgnore";
 
-        public static List<PropertyDeclarationSyntax> GetProperties(ClassDeclarationSyntax classDeclaration)
+        public static IEnumerable<PropertyDeclarationSyntax> GetProperties(ClassDeclarationSyntax classDeclaration)
         {
-            var propertiesToUpdate = new List<PropertyDeclarationSyntax>();
-
             var properties = classDeclaration.Members.OfType<PropertyDeclarationSyntax>();
             foreach (var propertyDeclarationSyntax in properties)
             {
@@ -41,15 +39,13 @@ namespace JsonAnalyzer
                     continue;
                 }
 
-                propertiesToUpdate.Add(propertyDeclarationSyntax);
+                yield return propertyDeclarationSyntax;
             }
-
-            return propertiesToUpdate;
         }
 
-        public static bool CheckAttributeName(SyntaxList<AttributeListSyntax> attributes, string[] attributeNames)
+        public static bool CheckAttributeName(SyntaxList<AttributeListSyntax> attributes, IEnumerable<string> attributeNames)
         {
-            var names = attributes.FirstOrDefault()?.Attributes.Select(syntax => syntax.Name.ToFullString());
+            var names = attributes.FirstOrDefault()?.Attributes.Select(syntax => syntax.Name.ToFullString()).ToArray();
             if (names == null || !names.Any())
             {
                 return false;

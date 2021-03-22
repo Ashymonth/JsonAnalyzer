@@ -32,14 +32,18 @@ namespace JsonAnalyzer.Test
 
     namespace ConsoleApplication1
     {
-       [JsonObject(MemberSerialization.OptIn)]
+        [JsonObject(MemberSerialization.OptIn)]
         class {|#0:TypeName|}
         {
-             
-        public int First {get; set;}
-        
-        [JsonProperty]
-        public int Second {get; set;}
+
+            [JsonProperty(""testPropr"")]
+            public int TestPropr { get; set; }
+
+            [JsonProperty(""testPropr1"")]
+            public int TestPropr1 { get; set; }
+
+            [JsonProperty(""testPropr2"")]
+            public int TestPropr2 { get; set; }
         }
     }";
 
