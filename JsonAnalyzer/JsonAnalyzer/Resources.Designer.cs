@@ -61,7 +61,7 @@ namespace JsonAnalyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type names should be all uppercase..
+        ///   Looks up a localized string similar to Property should have &quot;JsonProperty&quot; attribute..
         /// </summary>
         internal static string AnalyzerDescription {
             get {
@@ -70,16 +70,7 @@ namespace JsonAnalyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Class contains properties, that not marked as JsonProperty.
-        /// </summary>
-        internal static string AnalyzerMessageFormat {
-            get {
-                return ResourceManager.GetString("AnalyzerMessageFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Class contains properties, that not marked as JsonProperty.
+        ///   Looks up a localized string similar to Class contains properties, that not marked as &quot;JsonProperty&quot;.
         /// </summary>
         internal static string AnalyzerTitle {
             get {

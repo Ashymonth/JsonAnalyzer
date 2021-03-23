@@ -19,7 +19,6 @@ namespace JsonAnalyzer
         private const string WhiteSpaceFormat = "        ";
 
         public sealed override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(JsonAnalyzerAnalyzer.DiagnosticId);
-
         public sealed override FixAllProvider GetFixAllProvider() => WellKnownFixAllProviders.BatchFixer;
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
@@ -47,19 +46,19 @@ namespace JsonAnalyzer
                 property.WithAttributeLists(AddAttribute(property.Identifier.ValueText))).Cast<MemberDeclarationSyntax>().ToArray();
 
             var list = new List<MemberDeclarationSyntax>(classDeclarationSyntax.Members.Count);
-            foreach (var memberDeclarationSyntax in classDeclarationSyntax.Members)
+            foreach (var member in classDeclarationSyntax.Members)
             {
-                if (memberDeclarationSyntax is PropertyDeclarationSyntax property)
+                if (member is PropertyDeclarationSyntax property)
                 {
                     var propertyToUpdate = propertiesWithAddedAttribute.OfType<PropertyDeclarationSyntax>()
                         .FirstOrDefault(syntax => syntax.Identifier.ValueText == property.Identifier.ValueText);
 
-                    list.Add(propertyToUpdate ?? memberDeclarationSyntax);
+                    list.Add(propertyToUpdate ?? member);
                 }
                 else
                 {
 
-                    list.Add(memberDeclarationSyntax);
+                    list.Add(member);
                 }
             }
 

@@ -13,7 +13,7 @@ namespace JsonAnalyzer.Test
             const int expected = 0;
 
             //Act
-            var actual = await TestSetup.SetupAsync("CodeForTests\\ShouldBe_Zero_Analyze.txt");
+            var actual = await TestSetup.SetupAsync("CodeForTests\\Should_Be_Zero_Analyze_hit.txt");
 
             //Assert
             Assert.AreEqual(expected, actual.diagnostics.Length);
@@ -26,7 +26,7 @@ namespace JsonAnalyzer.Test
             const int expected = 1;
 
             //Act
-            var actual = await TestSetup.SetupAsync("CodeForTests\\ShouldBe_One_Analyze.txt");
+            var actual = await TestSetup.SetupAsync("CodeForTests\\Should_Be_One_Analyze_Hit.txt");
 
             //Assert
             Assert.AreEqual(expected, actual.diagnostics.Length);
