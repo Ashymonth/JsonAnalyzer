@@ -1,0 +1,22 @@
+﻿using Newtonsoft.Json;
+
+ namespace Test
+    {
+        public static class Program
+        {
+            public static void Main()
+            {
+
+            }
+        }
+
+        [JsonObject]
+        public class TestClass
+        {
+            
+            public string FirstProperty { get; set; }
+
+            [JsonIgnore]
+            public string SecondProperty { get; set; }
+        }
+    }

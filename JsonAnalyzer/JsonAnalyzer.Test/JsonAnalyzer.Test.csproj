@@ -5,6 +5,7 @@
 
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +24,21 @@
   <ItemGroup>
     <ProjectReference Include="..\JsonAnalyzer.CodeFixes\JsonAnalyzer.CodeFixes.csproj" />
     <ProjectReference Include="..\JsonAnalyzer\JsonAnalyzer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="CodeForTests\AfterFix.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="CodeForTests\ShouldBe_One_Analyze.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="CodeForTests\BeforeFix.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="CodeForTests\ShouldBe_Zero_Analyze.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

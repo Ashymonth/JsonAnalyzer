@@ -43,16 +43,24 @@ namespace JsonAnalyzer
         private static Task<Document> CreateJsonAttributes(Document document, ClassDeclarationSyntax classDeclarationSyntax, SyntaxNode root)
         {
             var propertiesWithoutAttribute = Helper.GetProperties(classDeclarationSyntax);
-            var propertiesWithAddedAttribute = propertiesWithoutAttribute.Select((property, i) =>
-                property.WithAttributeLists(AddAttribute(ToJsonCase(property.Identifier.ValueText), i == 0))).Cast<MemberDeclarationSyntax>().ToArray();
+            var propertiesWithAddedAttribute = propertiesWithoutAttribute.Select(property =>
+                property.WithAttributeLists(AddAttribute(property.Identifier.ValueText))).Cast<MemberDeclarationSyntax>().ToArray();
 
-            var list = new List<MemberDeclarationSyntax>();
-            foreach (var memberDeclarationSyntax in classDeclarationSyntax.Members.OfType<PropertyDeclarationSyntax>())
+            var list = new List<MemberDeclarationSyntax>(classDeclarationSyntax.Members.Count);
+            foreach (var memberDeclarationSyntax in classDeclarationSyntax.Members)
             {
-                var propertyToUpdate = propertiesWithAddedAttribute.OfType<PropertyDeclarationSyntax>()
-                    .FirstOrDefault(syntax => syntax.Identifier.ValueText == memberDeclarationSyntax.Identifier.ValueText);
+                if (memberDeclarationSyntax is PropertyDeclarationSyntax property)
+                {
+                    var propertyToUpdate = propertiesWithAddedAttribute.OfType<PropertyDeclarationSyntax>()
+                        .FirstOrDefault(syntax => syntax.Identifier.ValueText == property.Identifier.ValueText);
 
-                list.Add(propertyToUpdate ?? memberDeclarationSyntax);
+                    list.Add(propertyToUpdate ?? memberDeclarationSyntax);
+                }
+                else
+                {
+
+                    list.Add(memberDeclarationSyntax);
+                }
             }
 
             root = root.ReplaceNode(classDeclarationSyntax,
@@ -61,7 +69,7 @@ namespace JsonAnalyzer
             return Task.FromResult(document.WithSyntaxRoot(root));
         }
 
-        private static SyntaxList<AttributeListSyntax> AddAttribute(string literal, bool insertTrivia = false)
+        private static SyntaxList<AttributeListSyntax> AddAttribute(string literal)
         {
             var attribute =
                 SingletonList(
@@ -75,7 +83,7 @@ namespace JsonAnalyzer
                                                 AttributeArgument(
                                                     LiteralExpression(
                                                         SyntaxKind.StringLiteralExpression,
-                                                        Literal(literal))))))))
+                                                        Literal(ToJsonCase(literal)))))))))
                         .WithOpenBracketToken(
                             Token(
                                 TriviaList(LineFeed, Whitespace(WhiteSpaceFormat)),

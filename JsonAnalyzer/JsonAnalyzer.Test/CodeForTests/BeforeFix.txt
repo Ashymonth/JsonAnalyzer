@@ -1,0 +1,22 @@
+﻿using Newtonsoft.Json;
+
+namespace ConsoleApp1
+{
+    [JsonObject(MemberSerialization.OptIn)]
+    public class TestJson
+    {
+        
+        public int TestPropr { get; set; }
+
+        [JsonProperty("testPropr1")]
+        public int TestPropr1 { get; set; }
+
+        [JsonProperty("testPropr2")]
+        public int TestPropr2 { get; set; }
+
+        static void Main()
+        {
+            
+        }
+    }
+}

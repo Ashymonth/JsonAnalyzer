@@ -122,11 +122,11 @@
     <comment>An optional longer localizable description of the diagnostic.</comment>
   </data>
   <data name="AnalyzerMessageFormat" xml:space="preserve">
-    <value>Type name '{0}' contains lowercase letters</value>
+    <value>Class contains properties, that not marked as JsonProperty</value>
     <comment>The format-able message the diagnostic displays.</comment>
   </data>
   <data name="AnalyzerTitle" xml:space="preserve">
-    <value>Type name contains lowercase letters</value>
+    <value>Class contains properties, that not marked as JsonProperty</value>
     <comment>The title of the diagnostic.</comment>
   </data>
 </root>
