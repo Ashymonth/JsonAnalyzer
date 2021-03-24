@@ -61,7 +61,7 @@ namespace JsonAnalyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set jsJsonProperty attributes.
+        ///   Looks up a localized string similar to Set JsonProperty attributes.
         /// </summary>
         internal static string CodeFixTitle {
             get {

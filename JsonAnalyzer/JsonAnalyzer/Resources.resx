@@ -118,11 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AnalyzerDescription" xml:space="preserve">
-    <value>Property should have "JsonProperty" attribute.</value>
+    <value>Properties should have "JsonProperty" attribute.</value>
     <comment>An optional longer localizable description of the diagnostic.</comment>
   </data>
-  <data name="AnalyzerTitle" xml:space="preserve">
+  <data name="AnalyzerMesageFormat" xml:space="preserve">
     <value>Class contains properties, that not marked as "JsonProperty"</value>
+  </data>
+  <data name="AnalyzerTitle" xml:space="preserve">
+    <value>Warning: Not all properties marked as JsonProperties</value>
     <comment>The title of the diagnostic.</comment>
   </data>
 </root>

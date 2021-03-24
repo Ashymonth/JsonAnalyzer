@@ -61,7 +61,7 @@ namespace JsonAnalyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Property should have &quot;JsonProperty&quot; attribute..
+        ///   Looks up a localized string similar to Properties should have &quot;JsonProperty&quot; attribute..
         /// </summary>
         internal static string AnalyzerDescription {
             get {
@@ -71,6 +71,15 @@ namespace JsonAnalyzer {
         
         /// <summary>
         ///   Looks up a localized string similar to Class contains properties, that not marked as &quot;JsonProperty&quot;.
+        /// </summary>
+        internal static string AnalyzerMesageFormat {
+            get {
+                return ResourceManager.GetString("AnalyzerMesageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning: Not all properties marked as JsonProperties.
         /// </summary>
         internal static string AnalyzerTitle {
             get {
